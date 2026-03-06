@@ -1,11 +1,430 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
-    <title>Mi página web de prueba</title>
-    <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body>
-    <h1>¡Hola! Esta es mi página web de prueba en GitHub Pages</h1>
-  </body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respada Portfolio | Desarrollador FullStack</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0b0f1a;            
+            --card-bg: #161b2b;
+            --footer-bg: #080b14;
+            --accent-color: #00d4ff;
+            --text-main: #e2e8f0;
+            --text-dim: #94a3b8;
+            --nav-bg: rgba(11, 15, 26, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 10%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            letter-spacing: -1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        #hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 10%;
+            text-align: center;
+            background: radial-gradient(circle at center, #1e293b 0%, #0b0f1a 100%);
+        }
+
+        #hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        #hero h1 span {
+            background: linear-gradient(90deg, #00d4ff, #0055ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #hero p {
+            max-width: 600px;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            color: var(--text-dim);
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            background: var(--accent-color);
+            color: #0b0f1a;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        #proyectos {
+            padding: 100px 10%;
+        }
+
+        h2 {
+            margin-bottom: 3rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .grid-proyectos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 2rem;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            color: var(--accent-color);
+        }
+
+        .card p {
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: var(--text-dim);
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent-color);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .project-link {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            display: block;
+            width: 100%;
+            margin-top: 50px;
+            padding: 4rem 10%;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            background-color: var(--footer-bg);
+            color: var(--text-dim);
+            text-align: center;
+        }
+
+        .powered-by {
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            color: var(--text-main);
+        }
+
+        .powered-by span {
+            color: var(--accent-color);
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+        }
+
+        .vanilla-badge {
+            margin: 15px 0 20px 0;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+            opacity: 0.7;
+        }
+        
+        .legal-info {
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .console-prompt {
+            display: inline-block;
+            margin: 0 auto;
+            padding: 15px;
+            background: #000; 
+            color: #4ade80;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            text-align: left;
+            border-left: 3px solid #4ade80;
+        }   
+
+        .console-prompt div {
+            margin-bottom: 2px;
+        }
+
+        .console-prompt div::before {
+            content: "user@respada:~$ ";
+            color: #38bdf8;
+            font-weight: bold;
+        }
+
+        .console-prompt .cursor::after {
+            content: "_";
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+		
+		.license {
+			font-weight: bold;
+		}
+
+        .contact-area .email-btn {
+            padding: 2px 8px;
+            background-color: #161b2b;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-style: italic;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-area .email-btn:hover {
+            background: rgba(0, 212, 255, 0.05);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            font-style: normal;
+        }
+        
+        .year-area {
+            margin-top: 15px;
+            padding: 8px 0;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            #hero h1 { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">R.es</div>
+            <ul>
+                <li><a href="#hero">Inicio</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <h1>Desarrollo con<br><span>Propósito y Código.</span></h1>
+        <p>Especialista en interfaces interactivas y lógica de alto rendimiento utilizando tecnologías web modernas.</p>
+        <a href="#proyectos" class="btn">Explorar Proyectos</a>
+    </section>
+
+    <section id="proyectos">
+        <h2>Proyectos Destacados</h2>
+        <div class="grid-proyectos" id="project-container"></div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <p class="powered-by">Powered only by: <span>HTML * CSS * JAVASCRIPT</span></p>
+            <p class="vanilla-badge">0% external javascript libraries. 100% Vanilla JavaScript.</p>
+            
+            <div class="legal-info">
+                <div class="message">
+                    <div class="console-prompt">
+                        <div class="license">Code: MIT | Docs: CC BY 4.0</div>						
+                        <div>El código es libre para quien quiera aprender, pero el crédito es mío</div>
+                        <div id="contacto" class="contact-area">
+                            <a href="mailto:respada.pgr@gmail.com" class="email-btn">
+                                respada.pgr@gmail.com
+                            </a>
+                        </div>
+                        <div><span class="cursor"></span></div>
+                    </div>
+                </div>
+				
+            </div>
+                    
+            <div class="year-area">&copy; 2026</div>
+        </div>
+    </footer>
+
+    <script>
+        const proyectos = [
+            {
+                titulo: "Librería CDateTime",
+                descripcion: "Un motor avanzado de gestión de tiempo y fechas con soporte para plantillas estilo C# y aritmética temporal precisa.",
+                tags: ["JavaScript", "Regex", "ISO-8601"],
+                link: "https://github.com/tu-usuario/cdatetime"
+            },
+            {
+                titulo: "Dashboard de Finanzas",
+                descripcion: "Visualizador de gastos e ingresos en tiempo real con gráficos dinámicos y persistencia en LocalStorage.",
+                tags: ["CSS Grid", "Canvas API", "Vanilla JS"],
+                link: "#"
+            },
+            {
+                titulo: "Algoritmo de Pathfinding",
+                descripcion: "Simulación visual de búsqueda de caminos utilizando el algoritmo A* en una cuadrícula interactiva.",
+                tags: ["Data Structures", "Algorithms", "HTML5"],
+                link: "#"
+            },
+            {
+                titulo: "Weather App Pro",
+                descripcion: "Aplicación de clima con geolocalización, búsqueda por ciudades y cambio de interfaz según la hora del día.",
+                tags: ["APIs", "Promises", "UI/UX"],
+                link: "#"
+            }
+        ];
+
+        function renderProjects() {
+            const container = document.getElementById('project-container');
+            container.innerHTML = proyectos.map(project => `
+                <div class="card">
+                    <div>
+                        <h3>${project.titulo}</h3>
+                        <p>${project.descripcion}</p>
+                        <div class="tags">
+                            ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    <a href="${project.link}" target="_blank" class="project-link">
+                        Ver Proyecto <span>&rarr;</span>
+                    </a>
+                </div>
+            `).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProjects();
+            
+            const cards = document.querySelectorAll('.card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s ease-out';
+                observer.observe(card);
+            });
+            
+            console.log(
+                "%c 0% External Libraries. 100% Control. ",
+                "background: #00d4ff; color: #0b0f1a; font-weight: bold; border-radius: 4px; padding: 2px 5px;"
+            );
+        });
+    </script>
+</body>
 </html>
